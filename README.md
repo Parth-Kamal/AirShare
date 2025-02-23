@@ -36,7 +36,7 @@ Huawei, in its Mate 70 series, launched a hand gesture picture-sharing feature t
      - One PC acts as a receiver and the other as a sender; both need to share a verification code or IP address for file transferring.
      - Both PCs can act as receivers or senders, similar to Huawei's feature.
 2. **Laptop to Phone**
-   - Currently, this feature is in a basic stage, allowing screenshots to be sent to a phone when the script runs.
+   - v2.1.py : Currently, this feature is in a basic stage, allowing screenshots to be sent to a phone when the script runs.
 3. **Phone to Laptop**
    - This feature will be available in the future.
 
