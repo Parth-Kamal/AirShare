@@ -33,16 +33,19 @@ Huawei, in its Mate 70 series, launched a hand gesture picture-sharing feature t
 ## Three-Way Share
 1. **Laptop to Laptop**
    - Two methods:
-     - One PC acts as a receiver and the other as a sender; both need to share a verification code or IP address for file transferring.
-     - Both PCs can act as receivers or senders, similar to Huawei's feature.
+     - **LtoL(a2).py** : One PC acts as a receiver and the other as a sender; both need to share a verification code or IP address for file          transferring.
+     - **v3.3.py** : Both PCs can act as receivers or senders, similar to Huawei's feature.
 2. **Laptop to Phone**
-   - v2.1.py : Currently, this feature is in a basic stage, allowing screenshots to be sent to a phone when the script runs.
+   - **v2.1.py** : Currently, this feature is in a basic stage, allowing screenshots to be sent to a phone when the script runs.
 3. **Phone to Laptop**
    - This feature will be available in the future.
 
 ## FlowChart 
 
 <img width="689" alt="image" src="https://github.com/user-attachments/assets/f4fb5e1d-af29-4dff-acf1-db258627cf77" />
+
+## PPT
+https://drive.google.com/file/d/1UbS9jo4mmWyPtRJGNjoJgYGY5vNT0Bxx/view?usp=sharing
 
 
 
