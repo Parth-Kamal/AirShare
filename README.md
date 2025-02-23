@@ -40,7 +40,7 @@ Huawei, in its Mate 70 series, launched a hand gesture picture-sharing feature t
 3. **Phone to Laptop**
    - This feature will be available in the future.
 
-##FlowChart 
+## FlowChart 
 
 <img width="689" alt="image" src="https://github.com/user-attachments/assets/f4fb5e1d-af29-4dff-acf1-db258627cf77" />
 
