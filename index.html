@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AirShare - AI-Driven Touch-Free File Sharing</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#3B82F6',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+background:
+radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.03) 0%, transparent 50%),
+radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+radial-gradient(circle at 0% 100%, rgba(16, 185, 129, 0.03) 0%, transparent 50%);
+background-attachment: fixed;
+}
+.gradient-bg {
+background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+}
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.5);
+z-index: 1000;
+}
+</style>
+</head>
+<body class="bg-white">
+<header class="fixed w-full top-0 bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
+<nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<img src="https://static.readdy.ai/image/c6c0dda86955a4436ceff6f91b9f4b33/04cb963e5a68e3b7f2637e45d0f9db9e.png" alt="AirShare Logo" class="h-[40px]">
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a href="#features" class="text-gray-600 hover:text-primary">Features</a>
+<a href="#solution" class="text-gray-600 hover:text-primary">Solution</a>
+<a href="#about" class="text-gray-600 hover:text-primary">About</a>
+<button class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-primary/90">Get Started</button>
+</div>
+<button class="md:hidden w-10 h-10 flex items-center justify-center">
+<i class="ri-menu-line text-xl"></i>
+</button>
+</nav>
+</header>
+<main class="pt-16">
+<section class="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
+<div class="absolute inset-0 gradient-bg"></div>
+<div class="container mx-auto px-4 py-20 relative">
+<div class="grid md:grid-cols-2 gap-12 items-center">
+<div class="text-left">
+<h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+AI-Driven Touch-Free File Sharing
+</h1>
+<p class="text-xl text-gray-600 mb-12">Experience the future of file sharing with gesture control technology</p>
+<button id="enterBtn" class="bg-primary text-white text-lg px-12 py-4 !rounded-button hover:bg-primary/90 transform hover:scale-105 transition-all">
+ENTER
+</button>
+</div>
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/39a15acae4a25cde3077fb19ef3787a3.jpg" alt="Air File Sharing" class="rounded-lg shadow-2xl">
+</div>
+</div>
+</div>
+</section>
+<section id="features" class="py-20 bg-white">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl font-bold text-center mb-16">Key Features</h2>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="p-6 rounded-lg border border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mb-4">
+<i class="ri-hand-line text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-semibold mb-3">Gesture Recognition</h3>
+<p class="text-gray-600">Advanced hand tracking powered by OpenCV & MediaPipe for precise gesture detection</p>
+</div>
+<div class="p-6 rounded-lg border border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mb-4">
+<i class="ri-file-transfer-line text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-semibold mb-3">Wireless Transfer</h3>
+<p class="text-gray-600">Fast and secure file transfer over Wi-Fi/LAN without internet dependency</p>
+</div>
+<div class="p-6 rounded-lg border border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mb-4">
+<i class="ri-device-line text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-semibold mb-3">Cross-Platform</h3>
+<p class="text-gray-600">Seamlessly works across Windows, Mac, and Linux operating systems</p>
+</div>
+</div>
+</div>
+</section>
+<section id="solution" class="py-20">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl font-bold text-center mb-16">Our Solution</h2>
+<div class="grid md:grid-cols-2 gap-12 items-center">
+<div>
+<h3 class="text-2xl font-semibold mb-6">The Challenge We're Solving</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 flex items-center justify-center bg-red-100 rounded-full flex-shrink-0">
+<i class="ri-error-warning-line text-red-500"></i>
+</div>
+<div>
+<h4 class="font-medium">Hands-On Bottleneck</h4>
+<p class="text-gray-600">Physical interaction required for traditional file sharing methods</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 flex items-center justify-center bg-yellow-100 rounded-full flex-shrink-0">
+<i class="ri-apps-line text-yellow-500"></i>
+</div>
+<div>
+<h4 class="font-medium">App Dependency</h4>
+<p class="text-gray-600">Reliance on multiple external applications</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-8 h-8 flex items-center justify-center bg-orange-100 rounded-full flex-shrink-0">
+<i class="ri-shield-keyhole-line text-orange-500"></i>
+</div>
+<div>
+<h4 class="font-medium">Security Concerns</h4>
+<p class="text-gray-600">Vulnerability in conventional file sharing methods</p>
+</div>
+</div>
+</div>
+</div>
+<div>
+<img src="https://public.readdy.ai/ai/img_res/010eb3068e241e41b987965c03c58ea1.jpg" alt="AirShare Solution" class="rounded-lg shadow-lg">
+</div>
+</div>
+</div>
+</section>
+<div id="cameraModal" class="modal">
+<div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8 w-full max-w-md">
+<h3 class="text-xl font-semibold mb-4">Camera Access Required</h3>
+<p class="text-gray-600 mb-6">Please type "Camera" to enable camera access</p>
+<input type="text" id="cameraInput" class="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-primary" placeholder="Type 'Camera'">
+<div class="flex justify-end gap-4">
+<button onclick="closeModal()" class="px-6 py-2 border border-gray-300 !rounded-button hover:bg-gray-50">Cancel</button>
+<button onclick="verifyCameraAccess()" class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-primary/90">Continue</button>
+</div>
+</div>
+</div>
+<div id="cameraPage" class="fixed inset-0 bg-black hidden z-50">
+<div class="container mx-auto px-4 h-full flex flex-col items-center justify-center">
+<div class="w-full max-w-4xl mx-auto text-center">
+<button id="openCameraBtn" class="bg-primary text-white px-8 py-3 !rounded-button mb-4 hover:bg-primary/90">Open Camera</button>
+<button onclick="exitCamera()" class="block mx-auto bg-red-500 hover:bg-red-600 text-white px-8 py-3 !rounded-button">Exit</button>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-gray-900 text-white py-12">
+<div class="container mx-auto px-4">
+<div class="grid md:grid-cols-5 gap-8">
+<div class="md:col-span-2">
+<div class="flex items-center gap-2 mb-4">
+<img src="https://static.readdy.ai/image/c6c0dda86955a4436ceff6f91b9f4b33/7b69f1bf3c4ddb7f87cba23cad372299.png" alt="logo" class="h-16">
+</div>
+<p class="text-gray-400">Revolutionizing file sharing with AI-powered gesture control technology.</p>
+</div>
+<div>
+<h4 class="font-semibold mb-4">COMPANY</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Press Inquires</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Brand Guidelines</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Supply Store</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Security</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Terms & Conditions</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold mb-4">PRODUCT</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white">Desktop App</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">iPhone App</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Android App</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Search Companion</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Default Search</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold mb-4">RESOURCES</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white">Getting Started</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Help Center</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Give Feedback</a></li>
+</ul>
+</div>
+
+</div>
+<div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+<p>&copy; 2025 AirShare. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>
+const socket = io();
+
+document.getElementById('enterBtn').addEventListener('click', () => {
+    document.getElementById('cameraModal').style.display = 'block';
+});
+
+function closeModal() {
+    document.getElementById('cameraModal').style.display = 'none';
+}
+
+function verifyCameraAccess() {
+    const input = document.getElementById('cameraInput').value;
+    if (input.toLowerCase() === 'camera') {
+        document.getElementById('cameraModal').style.display = 'none';
+        document.getElementById('cameraPage').style.display = 'block';
+    } else {
+        document.getElementById('cameraModal').style.display = 'none';
+    }
+}
+
+function exitCamera() {
+    document.getElementById('cameraPage').style.display = 'none';
+}
+
+document.getElementById('openCameraBtn').addEventListener('click', async () => {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        video.classList.add('w-full', 'max-w-4xl', 'mx-auto', 'rounded-lg');
+        video.autoplay = true;
+        document.querySelector('#cameraPage .container').appendChild(video);
+        document.getElementById('openCameraBtn').style.display = 'none';
+
+        // Prompt user for role and IP address
+        const role = prompt("Are you the sender (S) or receiver (R)?").toLowerCase();
+        let ip = null;
+        if (role === 's') {
+            ip = prompt("Enter receiver's IP address:");
+        }
+
+        // Send role and IP to backend
+        socket.emit('setup_connection', { role, ip });
+
+        if (role === 'r') {
+            socket.emit('start_receive_server');
+        }
+    } catch (err) {
+        console.error('Error accessing camera:', err);
+    }
+});
+
+socket.on('connection_setup', (data) => {
+    console.log('Connection setup:', data);
+});
+
+socket.on('screenshot_sent', (data) => {
+    console.log('Screenshot sent:', data);
+});
+
+socket.on('receive_server_started', (data) => {
+    console.log('Receive server started:', data);
+});
+</script>
+</body>
+</html>
