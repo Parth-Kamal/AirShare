@@ -72,3 +72,8 @@ https://drive.google.com/file/d/1UbS9jo4mmWyPtRJGNjoJgYGY5vNT0Bxx/view?usp=shari
 
 AirShare aims to revolutionize file sharing with an AI-driven, secure, and intuitive system. Stay tuned for updates!
 
+## Idea Explaination
+https://youtu.be/774JVD6gb7c?si=iaA2-CSSPcCBHl9y
+
+## Prototype Explaination 
+https://youtu.be/774JVD6gb7c?si=iaA2-CSSPcCBHl9y
